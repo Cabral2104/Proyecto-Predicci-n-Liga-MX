@@ -1,0 +1,44 @@
+name: Oráculo Semanal Liga MX
+
+# Se activa automáticamente o manualmente
+on:
+  schedule:
+    # Cron: Minuto 0, Hora 14 UTC (8 AM CDMX), Todos los días (*), Mes (*), Día 1 (Lunes)
+    - cron: '0 14 * * 1'
+  workflow_dispatch: # Permite que tú lo corras manualmente con un botón si quieres
+
+jobs:
+  actualizar-predicciones:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Descargar tu repositorio
+    - name: Checkout del código
+      uses: actions/checkout@v3
+
+    # 2. Instalar Python
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    # 3. Instalar librerías
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # 4. EJECUTAR EL NOTEBOOK 
+    # (Este comando corre tu código y guarda las nuevas gráficas en el mismo archivo)
+    - name: Correr predicción
+      run: |
+        jupyter nbconvert --to notebook --execute --inplace Proyecto_Predicción_Liga_MX.ipynb
+
+    # 5. Guardar los cambios en GitHub
+    - name: Commit y Push de resultados
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add Proyecto_Predicción_Liga_MX.ipynb
+        git diff --quiet && git diff --staged --quiet || git commit -m "Actualización automática: Resultados Jornada Semanal"
+        git push
