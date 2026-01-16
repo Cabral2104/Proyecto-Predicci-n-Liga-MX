@@ -37,7 +37,7 @@ El modelo logró identificar correctamente la jerarquía de la liga, colocando a
 
 *(Puedes ver las gráficas y las tablas de probabilidad detalladas dentro del Notebook).*
 
-## 🛠️ Tecnologías Usadas
+## Tecnologías Usadas
 - **Python:** Lenguaje principal.
 - **Pandas/Numpy:** Manipulación de datos y álgebra lineal.
 - **Scikit-Learn:** Entrenamiento del modelo (Random Forest).
