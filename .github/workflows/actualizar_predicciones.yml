@@ -3,9 +3,10 @@ name: Oráculo Semanal Liga MX
 # Se activa automáticamente o manualmente
 on:
   schedule:
-    # Cron: Minuto 0, Hora 14 UTC (8 AM CDMX), Todos los días (*), Mes (*), Día 1 (Lunes)
-    - cron: '0 14 * * 1'
-  workflow_dispatch: # Permite que tú lo corras manualmente con un botón si quieres
+    # ANTES (Lunes 8 AM CDMX): '0 14 * * 1'
+    # AHORA (Martes 8 AM CDMX): '0 14 * * 2'
+    - cron: '0 14 * * 2'
+  workflow_dispatch:
 
 jobs:
   actualizar-predicciones:
